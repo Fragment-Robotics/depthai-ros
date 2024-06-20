@@ -57,6 +57,13 @@ SensorWrapper::SensorWrapper(const std::string& daiNodeName,
         if(device->getDeviceName() == "OAK-D-SR") {
             (*sensorIt).color = true;  // ov9282 is color sensor in this case
         }
+
+        // Added `i_enable_color` param to allow to set color sensor for cameras
+        // attached to OAK-FFC-4P that default to mono
+        if(ph->getParam<bool>("i_enable_color")) {
+            (*sensorIt).color = true;
+        }
+
         if((*sensorIt).color) {
             sensorNode = std::make_unique<RGB>(daiNodeName, node, pipeline, socket, (*sensorIt), publish);
         } else {
