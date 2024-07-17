@@ -71,6 +71,14 @@ void SensorParamHandler::declareParams(std::shared_ptr<dai::node::MonoCamera> mo
     if(declareAndLogParam<bool>("i_set_isp3a_fps", false)) {
         monoCam->setIsp3aFps(declareAndLogParam<int>("i_isp3a_fps", 10));
     }
+    // Added(Graham) Set sync frame pin from ros param
+    auto frameSyncMode = utils::getValFromMap(
+        declareAndLogParam<std::string>("i_frame_sync_mode", "OFF"),
+        dai_nodes::sensor_helpers::fSyncModeMap
+    );
+    RCLCPP_INFO(getROSNode()->get_logger(), "Setting %s frame sync mode to %d", sensor.name.c_str(), static_cast<int>(frameSyncMode));
+    monoCam->initialControl.setFrameSyncMode(frameSyncMode);
+    
     monoCam->setImageOrientation(
         utils::getValFromMap(declareAndLogParam<std::string>("i_sensor_img_orientation", "AUTO"), dai_nodes::sensor_helpers::cameraImageOrientationMap));
 }
@@ -170,6 +178,14 @@ void SensorParamHandler::declareParams(std::shared_ptr<dai::node::ColorCamera> c
     if(declareAndLogParam<bool>("i_set_isp3a_fps", false)) {
         colorCam->setIsp3aFps(declareAndLogParam<int>("i_isp3a_fps", 10));
     }
+    // Added(Graham) Set sync frame pin from ros param
+    auto frameSyncMode = utils::getValFromMap(
+        declareAndLogParam<std::string>("i_frame_sync_mode", "OFF"),
+        dai_nodes::sensor_helpers::fSyncModeMap
+    );
+    RCLCPP_INFO(getROSNode()->get_logger(), "Setting %s frame sync mode to %d", sensor.name.c_str(), static_cast<int>(frameSyncMode));
+    colorCam->initialControl.setFrameSyncMode(frameSyncMode);
+
     colorCam->setImageOrientation(
         utils::getValFromMap(declareAndLogParam<std::string>("i_sensor_img_orientation", "AUTO"), dai_nodes::sensor_helpers::cameraImageOrientationMap));
 }

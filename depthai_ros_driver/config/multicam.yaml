@@ -1,0 +1,28 @@
+/oak:
+  ros__parameters:
+    camera:
+      # i_nn_type: rgb 
+      i_pipeline_type: CamArray
+    rgb:
+      i_resolution: '800P'
+      i_fps: 20.0
+      i_frame_sync_mode: 'OUTPUT' # Single driver for syncing
+      i_sensor_img_orientation: 'ROTATE_180_DEG'
+    left:
+      i_resolution: '800P'
+      i_fps: 20.0
+      i_enable_color: True
+      i_frame_sync_mode: 'INPUT'
+      i_sensor_img_orientation: 'ROTATE_180_DEG'
+    left_back:
+      i_resolution: '800P'
+      i_fps: 20.0
+      i_enable_color: True
+      i_frame_sync_mode: 'INPUT'
+      i_sensor_img_orientation: 'ROTATE_180_DEG'
+    right:
+      i_resolution: '800P'
+      i_fps: 20.0
+      i_enable_color: True
+      i_frame_sync_mode: 'INPUT'
+      i_sensor_img_orientation: 'ROTATE_180_DEG'
